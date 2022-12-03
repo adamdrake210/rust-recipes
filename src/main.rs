@@ -33,7 +33,7 @@ impl From<&'static str> for TransactionError {
 
 fn main() -> Result<(), TransactionError> {
     println!("Hello, world!");
-    let trans = get_transactions_b("test_data/transactions.json").expect("Could not load transactions");
+    let trans = get_transactions_b("test_data/transactions.json")?;
     for t in trans {
         println!("{:?}", t);
     }
