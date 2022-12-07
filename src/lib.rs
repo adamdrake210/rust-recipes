@@ -10,26 +10,26 @@ pub struct Transaction {
 }
 
 
-pub fn get_first_transaction_for(fname: &str, uname: &str) -> Option<Transaction> {
-  let trans = get_transactions_b(fname).ok()?;
+pub fn get_first_transaction_for(fname: &str, uname: &str) -> Result<Transaction, failure::Error> {
+  let trans = get_transactions_b(fname)?;
 
   for t in trans {
     if t.from == uname {
-      return Some(t);
+      return Ok(t);
     }
   }
-  None
+  Err(TransactionError::Mess("Could not find transaction").into())
 }
 
-pub fn get_first_transaction_to(fname: &str, uname: &str) -> Option<Transaction> {
-  let trans = get_transactions_b(fname).ok()?;
+pub fn get_first_transaction_to(fname: &str, uname: &str) -> Result<Transaction, failure::Error> {
+  let trans = get_transactions_b(fname)?;
 
   for t in trans {
     if t.to == uname {
-      return Some(t);
+      return Ok(t);
     }
   }
-  None
+  Err(TransactionError::Mess("Could not find transaction").into())
 }
 
 // pub fn get_transactions(fname: &str) -> Result<Vec<Transaction>, String> {
